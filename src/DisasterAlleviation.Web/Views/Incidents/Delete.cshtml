@@ -1,0 +1,7 @@
+@model DisasterAlleviation.Web.Models.Incident
+<h2>Delete Incident</h2>
+<p>Are you sure you want to delete <strong>@Model.Title</strong>?</p>
+<form method="post">
+    <button class="btn btn-danger" type="submit">Delete</button>
+    <a class="btn btn-secondary" href="/Incidents">Cancel</a>
+</form>

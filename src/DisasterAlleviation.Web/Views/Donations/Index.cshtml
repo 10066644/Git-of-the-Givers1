@@ -1,0 +1,38 @@
+@model IEnumerable<DisasterAlleviation.Web.Models.Donation>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Donations</h2>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <a class="btn btn-primary" href="/Donations/Create">New Donation</a>
+    }
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Allocated</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Type</td>
+                <td>@item.ItemName</td>
+                <td>@item.Quantity</td>
+                <td>
+                    <form method="post" action="/Donations/ToggleAllocated/@item.Id">
+                        <button class="btn btn-sm @(item.Allocated ? "btn-success" : "btn-outline-secondary")" type="submit">@(item.Allocated ? "Allocated" : "Pending")</button>
+                    </form>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" href="/Donations/Edit/@item.Id">Edit</a>
+                    <a class="btn btn-sm btn-outline-danger" href="/Donations/Delete/@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

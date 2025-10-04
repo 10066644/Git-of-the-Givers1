@@ -1,0 +1,27 @@
+@model DisasterAlleviation.Web.Models.Donation
+<h2>Edit Donation</h2>
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label class="form-label">Type</label>
+        <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<DisasterAlleviation.Web.Models.DonationType>()"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Item</label>
+        <input asp-for="ItemName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea asp-for="Notes" class="form-control"></textarea>
+    </div>
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" asp-for="Allocated" />
+        <label class="form-check-label">Allocated</label>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" href="/Donations">Cancel</a>
+</form>

@@ -1,0 +1,19 @@
+@model IEnumerable<DisasterAlleviation.Web.Models.VolunteerTask>
+<h2>My Assignments</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Schedule</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.StartAt.ToLocalTime().ToString("g") @if (item.EndAt.HasValue){<text>- @item.EndAt.Value.ToLocalTime().ToString("g")</text>}</td>
+            </tr>
+        }
+    </tbody>
+</table>
