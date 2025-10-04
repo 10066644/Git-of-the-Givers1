@@ -1,0 +1,36 @@
+@model DisasterAlleviation.Web.Models.Incident
+<h2>Edit Incident</h2>
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input asp-for="Location" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Date</label>
+        <input asp-for="Date" type="datetime-local" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Severity</label>
+        <select asp-for="Severity" class="form-select">
+            <option>Low</option>
+            <option>Moderate</option>
+            <option>High</option>
+            <option>Critical</option>
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" href="/Incidents">Cancel</a>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

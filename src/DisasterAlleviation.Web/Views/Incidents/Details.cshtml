@@ -1,0 +1,5 @@
+@model DisasterAlleviation.Web.Models.Incident
+<h2>@Model.Title</h2>
+<p class="text-muted">@Model.Location • @Model.Date.ToLocalTime().ToString("yyyy-MM-dd HH:mm") • @Model.Severity</p>
+<p>@Model.Description</p>
+<a class="btn btn-secondary" href="/Incidents">Back</a>

@@ -1,0 +1,38 @@
+@model IEnumerable<DisasterAlleviation.Web.Models.Incident>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Incidents</h2>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <a class="btn btn-primary" href="/Incidents/Create">Report Incident</a>
+    }
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Severity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Location</td>
+                <td>@item.Date.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@item.Severity</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" href="/Incidents/Details/@item.Id">Details</a>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a class="btn btn-sm btn-outline-primary" href="/Incidents/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="/Incidents/Delete/@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

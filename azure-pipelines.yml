@@ -1,0 +1,44 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      - feature/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  BuildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'
+
+- script: |
+    dotnet restore src/DisasterAlleviation.sln
+  displayName: 'Restore'
+
+- script: |
+    dotnet build src/DisasterAlleviation.sln --configuration $(BuildConfiguration) --no-restore
+  displayName: 'Build'
+
+- script: |
+    dotnet test tests/DisasterAlleviation.Web.Tests/DisasterAlleviation.Web.Tests.csproj --configuration $(BuildConfiguration) --no-build --logger trx --collect:"XPlat Code Coverage"
+  displayName: 'Test'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/*.trx'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+  condition: succeededOrFailed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifact'
+  inputs:
+    PathtoPublish: 'src/DisasterAlleviation.Web'
+    ArtifactName: 'webapp'

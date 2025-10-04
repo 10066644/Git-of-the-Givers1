@@ -1,0 +1,42 @@
+@model IEnumerable<DisasterAlleviation.Web.Models.VolunteerTask>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Volunteer Tasks</h2>
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        <a class="btn btn-primary" href="/Volunteer/Create">Create Task</a>
+    }
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Schedule</th>
+            <th>Capacity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.StartAt.ToLocalTime().ToString("g") @if (item.EndAt.HasValue){<text>- @item.EndAt.Value.ToLocalTime().ToString("g")</text>}</td>
+                <td>@item.Capacity</td>
+                <td>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <form method="post" action="/Volunteer/SignUp/@item.Id" class="d-inline">
+                            <button class="btn btn-sm btn-success" type="submit">Sign Up</button>
+                        </form>
+                        <a class="btn btn-sm btn-outline-primary" href="/Volunteer/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="/Volunteer/Delete/@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+    <a class="btn btn-secondary" href="/Volunteer/MyAssignments">My Assignments</a>
+}

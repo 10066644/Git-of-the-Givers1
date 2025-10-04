@@ -1,0 +1,27 @@
+@model DisasterAlleviation.Web.Models.VolunteerTask
+<h2>Edit Volunteer Task</h2>
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Start At</label>
+        <input asp-for="StartAt" type="datetime-local" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">End At</label>
+        <input asp-for="EndAt" type="datetime-local" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input asp-for="Capacity" class="form-control" />
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" href="/Volunteer">Cancel</a>
+</form>
